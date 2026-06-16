@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Heroes Database</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>🦸 Marvel Heroes Database</h1>
+        <p>База данных персонажей Marvel Cinematic Universe</p>
+    </header>
+
+    <main class="container">
+        <!-- Фильтр по фильмам -->
+        <div class="filter-section">
+            <label for="movieFilter">🎬 Фильтр по фильму:</label>
+            <select id="movieFilter">
+                <option value="all">Все герои</option>
+            </select>
+        </div>
+
+        <!-- Счётчик героев -->
+        <div class="stats">
+            <span id="heroesCount">Загрузка...</span>
+        </div>
+
+        <!-- Сетка карточек -->
+        <div id="heroesGrid" class="heroes-grid">
+            <!-- Карточки будут добавлены через JS -->
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 Marvel Heroes Database | Учебный проект</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

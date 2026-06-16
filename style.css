@@ -1,0 +1,265 @@
+/* ===== Base Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ffffff;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ===== Header ===== */
+.header {
+    background: linear-gradient(135deg, #e62429 0%, #b91c1c 100%);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* ===== Container ===== */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ===== Filter Section ===== */
+.filter-section {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.filter-section label {
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    font-weight: 600;
+}
+
+#movieFilter {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: 2px solid #e62429;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1a1a2e;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 300px;
+}
+
+#movieFilter:hover {
+    border-color: #ff6b6b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 36, 41, 0.3);
+}
+
+/* ===== Stats ===== */
+.stats {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #a0a0a0;
+}
+
+#heroesCount {
+    font-weight: 600;
+    color: #e62429;
+}
+
+/* ===== Heroes Grid ===== */
+.heroes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+/* ===== Hero Card ===== */
+.hero-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(230, 36, 41, 0.4);
+}
+
+.hero-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-bottom: 3px solid #e62429;
+}
+
+.hero-info {
+    padding: 1.5rem;
+}
+
+.hero-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e62429;
+    margin-bottom: 0.5rem;
+}
+
+.hero-real-name {
+    font-size: 1rem;
+    color: #a0a0a0;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.hero-details {
+    margin-bottom: 1rem;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #ffd700;
+    min-width: 100px;
+    margin-right: 0.5rem;
+}
+
+.detail-value {
+    color: #ffffff;
+}
+
+.status-alive {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.status-deceased {
+    color: #f44336;
+    font-weight: 600;
+}
+
+.status-unknown {
+    color: #ff9800;
+    font-weight: 600;
+}
+
+.hero-movies {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.movies-title {
+    font-weight: 600;
+    color: #ffd700;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.movies-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.movie-tag {
+    background: rgba(230, 36, 41, 0.3);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(230, 36, 41, 0.5);
+}
+
+/* ===== Footer ===== */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+    background: rgba(0, 0, 0, 0.3);
+    color: #a0a0a0;
+}
+
+/* ===== Loading State ===== */
+.loading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: #e62429;
+}
+
+/* ===== Error State ===== */
+.error {
+    text-align: center;
+    padding: 3rem;
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .filter-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #movieFilter {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    .heroes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-image {
+        height: 300px;
+    }
+}
+
+/* ===== Animation ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-card {
+    animation: fadeIn 0.5s ease forwards;
+}
