@@ -1,19 +1,16 @@
 "use strict";
 
-// DOM Elements
 const heroesGrid = document.getElementById("heroesGrid");
 const movieFilter = document.getElementById("movieFilter");
 const heroesCount = document.getElementById("heroesCount");
 
-// State
 let allHeroes = [];
 let uniqueMovies = new Set();
-let isLoading = false; // Флаг для предотвращения повторных загрузок
+let isLoading = false;
 
-// ===== Fetch Data =====
 const fetchData = async (url) => {
   try {
-    console.log("🔄 Загрузка данных из:", url);
+    console.log("Загрузка данных из:", url);
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -21,13 +18,13 @@ const fetchData = async (url) => {
     }
 
     const data = await response.json();
-    console.log("✅ Данные загружены:", data);
+    console.log("Данные загружены:", data);
     return data;
   } catch (error) {
-    console.error("❌ Ошибка загрузки:", error);
+    console.error("Ошибка загрузки:", error);
     heroesGrid.innerHTML = `
             <div class="error">
-                ❌ Ошибка загрузки данных: ${error.message}<br>
+                Ошибка загрузки данных: ${error.message}<br>
                 <small>Убедитесь, что файл dbHeroes.json существует и запущен локальный сервер</small>
             </div>
         `;
@@ -35,13 +32,11 @@ const fetchData = async (url) => {
   }
 };
 
-// ===== Create Hero Card =====
 const createHeroCard = (hero) => {
   const card = document.createElement("div");
   card.className = "hero-card";
   card.dataset.movies = hero.movies ? hero.movies.join(",") : "";
 
-  // Determine status class
   const status = hero.status ? hero.status.toLowerCase().trim() : "unknown";
   let statusText = "Неизвестно";
   let statusClass = "status-unknown";
@@ -57,7 +52,6 @@ const createHeroCard = (hero) => {
     statusClass = "status-deceased";
   }
 
-  // Get photo path - проверяем несколько вариантов
   let photoPath = "dbimage/default.jpg";
   if (hero.photo) {
     const cleanPhoto = hero.photo.trim();
@@ -149,7 +143,7 @@ const createHeroCard = (hero) => {
               hero.movies && hero.movies.length > 0
                 ? `
             <div class="hero-movies">
-                <div class="movies-title">🎬 Фильмы:</div>
+                <div class="movies-title"> Фильмы:</div>
                 <div class="movies-list">
                     ${hero.movies.map((movie) => `<span class="movie-tag">${movie}</span>`).join("")}
                 </div>
@@ -163,19 +157,17 @@ const createHeroCard = (hero) => {
   return card;
 };
 
-// ===== Render Heroes =====
 const renderHeroes = (heroes) => {
-  console.log("📊 Отрисовка героев:", heroes.length);
+  console.log("Отрисовка героев:", heroes.length);
   heroesGrid.innerHTML = "";
 
   if (!heroes || heroes.length === 0) {
-    heroesGrid.innerHTML = '<div class="error">😕 Герои не найдены</div>';
+    heroesGrid.innerHTML = '<div class="error"> Герои не найдены</div>';
     return;
   }
 
   heroes.forEach((hero, index) => {
     const card = createHeroCard(hero);
-    // Stagger animation - только один раз
     card.style.animationDelay = `${index * 0.05}s`;
     heroesGrid.appendChild(card);
   });
@@ -183,7 +175,6 @@ const renderHeroes = (heroes) => {
   heroesCount.textContent = `Показано героев: ${heroes.length} из ${allHeroes.length}`;
 };
 
-// ===== Extract Unique Movies =====
 const extractUniqueMovies = (heroes) => {
   uniqueMovies.clear();
   if (!heroes) return [];
@@ -198,9 +189,7 @@ const extractUniqueMovies = (heroes) => {
   return Array.from(uniqueMovies).sort();
 };
 
-// ===== Populate Filter =====
 const populateFilter = (movies) => {
-  // Keep the "All" option
   movieFilter.innerHTML = '<option value="all">Все герои</option>';
 
   if (!movies) return;
@@ -213,9 +202,8 @@ const populateFilter = (movies) => {
   });
 };
 
-// ===== Filter Heroes =====
 const filterHeroes = (movie) => {
-  console.log("🔍 Фильтр:", movie);
+  console.log("Фильтр:", movie);
   if (movie === "all") {
     renderHeroes(allHeroes);
   } else {
@@ -226,48 +214,42 @@ const filterHeroes = (movie) => {
   }
 };
 
-// ===== Initialize =====
 const init = async () => {
-  // Предотвращаем повторную инициализацию
   if (isLoading) {
-    console.warn("⚠️ Уже идет загрузка...");
+    console.warn("Уже идет загрузка...");
     return;
   }
 
   isLoading = true;
-  console.log("🚀 Инициализация приложения...");
+  console.log("Инициализация приложения...");
 
   heroesGrid.innerHTML = '<div class="loading">⏳ Загрузка данных...</div>';
 
   try {
-    // Load heroes data
     allHeroes = await fetchData("dbHeroes.json");
 
     if (!allHeroes) {
-      console.error("❌ Данные не загружены");
+      console.error("Данные не загружены");
       return;
     }
 
-    console.log("✅ Всего героев:", allHeroes.length);
+    console.log(" Всего героев:", allHeroes.length);
 
-    // Extract and populate movies
     const movies = extractUniqueMovies(allHeroes);
-    console.log("🎬 Уникальных фильмов:", movies.length);
+    console.log("Уникальных фильмов:", movies.length);
     populateFilter(movies);
 
-    // Render all heroes initially
     renderHeroes(allHeroes);
 
-    // Add filter event listener (только один раз!)
     movieFilter.removeEventListener("change", filterHeroes);
     movieFilter.addEventListener("change", (e) => {
       filterHeroes(e.target.value);
     });
   } catch (error) {
-    console.error("❌ Ошибка инициализации:", error);
+    console.error("Ошибка инициализации:", error);
     heroesGrid.innerHTML = `
             <div class="error">
-                ❌ Критическая ошибка: ${error.message}
+                Критическая ошибка: ${error.message}
             </div>
         `;
   } finally {
@@ -275,7 +257,6 @@ const init = async () => {
   }
 };
 
-// Start the app (только один раз!)
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
