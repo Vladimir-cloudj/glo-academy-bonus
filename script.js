@@ -1,5 +1,7 @@
 "use strict";
 
+import { STATUS_MAP, DEFAULT_STATUS } from "./constants.js";
+
 const heroesGrid = document.getElementById("heroesGrid");
 const movieFilter = document.getElementById("movieFilter");
 const heroesCount = document.getElementById("heroesCount");
@@ -37,20 +39,9 @@ const createHeroCard = (hero) => {
   card.className = "hero-card";
   card.dataset.movies = hero.movies ? hero.movies.join(",") : "";
 
-  const status = hero.status ? hero.status.toLowerCase().trim() : "unknown";
-  let statusText = "Неизвестно";
-  let statusClass = "status-unknown";
-
-  if (status === "alive") {
-    statusText = "Жив";
-    statusClass = "status-alive";
-  } else if (status === "deceased") {
-    statusText = "Погиб";
-    statusClass = "status-deceased";
-  } else if (status === "destroyed") {
-    statusText = "Уничтожен";
-    statusClass = "status-deceased";
-  }
+  const statusKey = hero.status ? hero.status.toLowerCase().trim() : "unknown";
+  const { text: statusText, class: statusClass } =
+    STATUS_MAP[statusKey] ?? DEFAULT_STATUS;
 
   let photoPath = "dbimage/default.jpg";
   if (hero.photo) {
@@ -143,7 +134,7 @@ const createHeroCard = (hero) => {
               hero.movies && hero.movies.length > 0
                 ? `
             <div class="hero-movies">
-                <div class="movies-title"> Фильмы:</div>
+                <div class="movies-title">Фильмы:</div>
                 <div class="movies-list">
                     ${hero.movies.map((movie) => `<span class="movie-tag">${movie}</span>`).join("")}
                 </div>
@@ -162,7 +153,7 @@ const renderHeroes = (heroes) => {
   heroesGrid.innerHTML = "";
 
   if (!heroes || heroes.length === 0) {
-    heroesGrid.innerHTML = '<div class="error"> Герои не найдены</div>';
+    heroesGrid.innerHTML = '<div class="error">Герои не найдены</div>';
     return;
   }
 
@@ -223,7 +214,7 @@ const init = async () => {
   isLoading = true;
   console.log("Инициализация приложения...");
 
-  heroesGrid.innerHTML = '<div class="loading">⏳ Загрузка данных...</div>';
+  heroesGrid.innerHTML = '<div class="loading">Загрузка данных...</div>';
 
   try {
     allHeroes = await fetchData("dbHeroes.json");
@@ -233,7 +224,7 @@ const init = async () => {
       return;
     }
 
-    console.log(" Всего героев:", allHeroes.length);
+    console.log("Всего героев:", allHeroes.length);
 
     const movies = extractUniqueMovies(allHeroes);
     console.log("Уникальных фильмов:", movies.length);
